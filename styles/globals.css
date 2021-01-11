@@ -172,6 +172,7 @@ a {
 }
 
 .login-page {
+  background-color: rgb(68, 68, 68);
   background-image: url('../public/images/estudante.jpg');
   background-size: 110%;
 }

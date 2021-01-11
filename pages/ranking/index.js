@@ -79,7 +79,7 @@ export default function Ranking({ user }) {
       .where('privateInfo', '==', false)
       .orderBy("points", "desc")
       .startAfter(lastFetchUser || 3000)
-      .limit(5);
+      .limit(10);
 
     const data = await ref.get();
 
@@ -112,7 +112,7 @@ export default function Ranking({ user }) {
       .collection("users")
       .orderBy("points", "desc")
       .startAfter(lastFetchUser || 3000)
-      .limit(6)
+      .limit(10)
       .get();
 
     if (followingUsers.empty) {

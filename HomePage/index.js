@@ -13,7 +13,7 @@ import LoadingIcon2 from "../public/images/loading-icon-2.svg";
 export default function HomePage() {
   const [users, setUsers] = useState([]);
   const [followingUsers, setFollowingUsers] = useState([]);
-  const [isLoadingData, setIsLoadingData] = useState(true)
+  const [isLoadingData, setIsLoadingData] = useState(false)
   const [currentUser, setCurrentUser] = useState('')
 
   useEffect(() => {
@@ -36,6 +36,7 @@ export default function HomePage() {
     }
 
     function getFollowingUsers() {
+      setIsLoadingData(true)
       let position = 0;
 
       firestore
@@ -52,16 +53,17 @@ export default function HomePage() {
             .limit(10)
             .get()
             .then((users) => {
+              setIsLoadingData(false);
               users.forEach((userCred) => {
                 position++;
+                console.log(userCred)
 
                 let user = userCred.data();
                 if (!currentUser.following.includes(userCred.id)) return;
                 let aUser = { ...user, id: userCred.id, position };
 
                 useGetUserImages(aUser, userCred.id, setFollowingUsers);         
-                setIsLoadingData(false);
-              });
+              })
             });
         });
     }
@@ -71,8 +73,8 @@ export default function HomePage() {
   }, []);
 
   useEffect(() => {
-    console.log('is loading data: ' + isLoadingData);
-  }, [isLoadingData]);
+    console.log(currentUser);
+  }, [currentUser]);
 
   return (
     <div className="home-page-container">
@@ -179,7 +181,7 @@ export default function HomePage() {
 
             <section>
               <h4>Suas conquistas:</h4>
-              {currentUser
+              {(!isLoadingData && currentUser)
                 ? currentUser.achivs.length
                   ? "achivs here"
                   : "você ainda não tem conquistas"

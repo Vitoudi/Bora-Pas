@@ -89,10 +89,13 @@ export default function SignInModal({ setModalState }) {
             username,
             bio: '',
             points: 0,
+            pasType: 1,
             achivs: [],
             following: [],
             subjects: [],
             privateInfo: false
+        }).then(output => {
+          console.log(output)
         })
     }
   }

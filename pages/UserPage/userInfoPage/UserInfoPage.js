@@ -227,7 +227,7 @@ export default function UserInfoPage(match) {
               {isCurrentUserPage
                 ? userInfo.bio
                   ? userInfo.bio
-                  : "Your bio..."
+                  : "Sua bio..."
                 : "..."}
             </p>
           )}

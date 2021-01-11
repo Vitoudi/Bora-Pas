@@ -6,6 +6,7 @@ import Link from 'next/link';
 import searchIcon from '../public/images/search-icon.svg'
 import closeIcon from '../public/images/close-icon.svg'
 import User from "./User";
+import userDefaultImage from '../public/images/user-default-image.png'
 import { loadGetInitialProps } from "next/dist/next-server/lib/utils";
 
 export default function Header() {
@@ -28,19 +29,28 @@ export default function Header() {
   useEffect(() => {
     if(!uid) return
     function getUsername() {
-      firestore
-        .collection("users")
-        .doc(uid)
-        .get()
-        .then((user) => setUsername(user.data().username));
+      try {
+        firestore
+          .collection("users")
+          .doc(uid)
+          .get()
+          .then((user) => setUsername(user.data()? user.data().username : 'username'));
+      }
+      catch {
+        setUsername('username')
+      }
+      
     }
 
     function getUserImage() {
+      setUserimage(userDefaultImage);
         const storageRef = storage.ref(`users/${uid}/profileImage`)
         storageRef.getDownloadURL()
             .then((url=> {
                 setUserimage(url)
             }))
+      
+        
     }
 
     function checkIfUserIsAdmin() {

@@ -10,7 +10,7 @@ export default function PageModeMsg({ modalState, setModalState }) {
     <div className="page-mode-msg">
       <p>
         {modalState === "signUp" ? "Já tem uma conta?" : "Ainda não tem conta?"}{" "}
-        <span onClick={handleClick}>{modalState === "login"? 'Login' : 'Criar conta'}</span>
+        <span onClick={handleClick}>{modalState === "login"? 'Criar conta' : 'Login'}</span>
       </p>
     </div>
   );

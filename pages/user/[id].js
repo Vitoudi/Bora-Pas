@@ -296,7 +296,7 @@ export default function UserInfoPage() {
                 {isCurrentUserPage
                   ? userInfo.bio
                     ? userInfo.bio
-                    : "Your bio..."
+                    : "Sua bio..."
                   : userInfo.bio
                   ? userInfo.bio
                   : "..."}

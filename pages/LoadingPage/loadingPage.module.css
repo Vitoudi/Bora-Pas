@@ -1,0 +1,26 @@
+.loading-page-container {
+    width: 100%;
+    height: 100vh;
+    display: grid;
+    align-content: center;
+    justify-content: center;
+    justify-items: center;
+}
+
+.loading-page-container h1 {
+    transition: .5s;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 50px;
+    margin-bottom: 10px;
+}
+
+.loading-page-container h1 span {
+    color: var(--main-color);
+}
+
+.loading-page-container img {
+    width: 55px;
+    text-align: center;
+}

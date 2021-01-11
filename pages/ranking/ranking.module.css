@@ -1,0 +1,30 @@
+.ranking-page-container {
+    display: grid;
+    justify-content: center;
+    height: calc(100vh - 120PX);
+    overflow-y: scroll;
+}
+
+.users {
+    width: 700px;
+    display: grid;
+    align-content: start;
+}
+
+.user-in-list {
+    display: flex;
+    align-items: center;
+    align-content: center;
+
+    padding: 20px;
+    transform: scale(1.2);
+}
+
+.loading-icon-2 {
+    width: 75px;
+    justify-self: center;
+    align-self: center;
+    margin: 20px;
+}
+
+

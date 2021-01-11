@@ -1,0 +1,69 @@
+.user-info-page-container {
+    padding: 30px 0;
+    justify-self: center;
+    width: 80%;
+
+    display: grid;
+    grid-template-areas: 
+    'basic-info extra-info'
+    ;
+    grid-template-columns: 320px 1fr;
+}
+
+.user-basic-info-container {
+    grid-area: basic-info;
+    display: grid;
+    justify-content: center;
+    padding-right: 30px;
+
+    border-right: 2px solid rgba(0, 0, 0, 0.089);
+}
+
+.user-basic-info-container .user-image {
+    width: 260px;
+    height: 260px;
+    border-radius: 260px;
+}
+
+.user-basic-info-container h2 {
+    text-align: center;
+    margin: 5px 0;
+}
+
+.user-basic-info-container p {
+    margin-bottom: 10px;
+    text-align: center;
+    color: rgb(121, 121, 121);
+}
+
+.user-basic-info-container .image-container h3 {
+    color: white;
+    transform: translate(37%, -550%);
+}
+
+.image-container {
+    max-height: 260px;
+}
+
+.user-extra-info-container {
+    margin-left: 20px;
+}
+
+.user-extra-info-container .points-container{
+    font-size: 50px;
+    color: rgb(65, 65, 65);
+}
+
+.user-extra-info-container p {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.user-extra-info-container p span {
+    font-weight: normal;
+}
+
+.user-info-username-input {
+    font-size: 20px;
+    font-weight: bold;
+}

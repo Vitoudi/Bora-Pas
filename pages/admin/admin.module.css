@@ -1,0 +1,43 @@
+.admin-painel-container {
+    display: grid;
+    justify-content: center;
+    padding: 30px;
+
+    grid-template-areas:
+     'add-admin add-question';
+}
+
+.add-admin-area {
+    grid-area: add-admin;
+}
+
+.add-admin-area form, .add-question-container {
+    justify-self: start;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+
+.add-admin-area form label, .add-question-container label {
+    margin: 15px 0;
+}
+
+.add-admin-area form label input, .add-question-container input {
+    margin-left: 10px;
+}
+
+.add-question-container {
+    margin-left: 60px;
+}
+
+
+
+.alternatives-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.alternatives-container label {
+  margin: 8px 0;
+}

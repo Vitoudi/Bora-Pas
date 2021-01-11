@@ -1,0 +1,22 @@
+[
+    {
+        "name": "Linguagens e códigos",
+        "subjects": ["Português, Literatura, Inglês", "Artes"]
+    },
+    {
+        "name": "Ciências humanas",
+        "subjects": ["História, Geografia, Filosofia, Sociologia"]
+    },
+    {
+        "name": "Ciências da natureza",
+        "subjects": []
+    },
+    {
+        "name": "Matemática",
+        "subjects": ["Matemática"]
+    },
+    {
+        "name": "Obras",
+        "subjects": ["Audiovisuais", "Leitura", "Musicais", "Artísticas"]
+    }
+]

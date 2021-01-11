@@ -123,7 +123,7 @@ export default function SignInModal({ setModalState }) {
 
   return (
     <div className="modal sign-up-modal">
-      <h2>Sign in:</h2>
+      <h2>Criar conta:</h2>
       <section className="modal-user-info-container">
         <div className="modal-user-info">
           <div className="modal-user-image-place">
@@ -142,7 +142,7 @@ export default function SignInModal({ setModalState }) {
 
         <form action="" className="form sign-in-form">
           <label className="input-label">
-            username:
+            Username:
             <input
               className="input-1"
               onChange={(e) =>
@@ -156,7 +156,7 @@ export default function SignInModal({ setModalState }) {
             />
           </label>
           <label className="input-label">
-            email:
+            Email:
             <input
               className="input-1"
               onChange={(e) =>
@@ -170,7 +170,7 @@ export default function SignInModal({ setModalState }) {
             />
           </label>
           <label className="input-label">
-            password:
+            Senha:
             <input
               className="input-1"
               onChange={(e) =>
@@ -184,7 +184,7 @@ export default function SignInModal({ setModalState }) {
             />
           </label>
           <label className="input-lavel">
-            confirm password:
+            Confirmar senha:
             <input
               className="input-1"
               onChange={(e) =>

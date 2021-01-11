@@ -51,7 +51,7 @@ export default function LoginModal() {
       <section className="modal-user-info-container">
         <form action="" className="form login-form">
           <label className="input-label">
-            email:
+            Email:
             <input
               className="input-1"
               type="email"
@@ -65,7 +65,7 @@ export default function LoginModal() {
             />
           </label>
           <label className="input-label">
-            password:
+            Senha:
             <input
               className="input-1"
               type="password"

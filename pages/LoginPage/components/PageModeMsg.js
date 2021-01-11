@@ -9,8 +9,8 @@ export default function PageModeMsg({ modalState, setModalState }) {
   return (
     <div className="page-mode-msg">
       <p>
-        {modalState === "signUp" ? "Alredy has an account?" : "Do not have an account?"}{" "}
-        <span onClick={handleClick}>{modalState === "signUp"? 'Login' : 'Create account'}</span>
+        {modalState === "signUp" ? "Já tem uma conta?" : "Ainda não tem conta?"}{" "}
+        <span onClick={handleClick}>{modalState === "login"? 'Login' : 'Criar conta'}</span>
       </p>
     </div>
   );

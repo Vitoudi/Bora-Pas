@@ -44,18 +44,30 @@ export default function CurrentPage() {
   }*/
 
   if (isLoading) {
-    return <LoadingPage />;
+    return (
+      <>
+        <Head>
+          <title>BORA PAS - Prepare-se pa o Pas UNB</title>
+        </Head>
+        <LoadingPage />
+      </>
+    );
   } 
 
 
   return (
-    <div
-      className={`current-page ${
-        !user.isLoggedIn ? "login-page" : "user-page"
-      }`}
-    >
-      {user.isLoggedIn ? <UserPage /> : <LoginPage />}
-    </div>
+    <>
+      <Head>
+        <title>BORA PAS - Prepare-se pa o Pas UNB</title>
+      </Head>
+      <div
+        className={`current-page ${
+          !user.isLoggedIn ? "login-page" : "user-page"
+        }`}
+      >
+        {user.isLoggedIn ? <UserPage /> : <LoginPage />}
+      </div>
+    </>
   );
 }
 

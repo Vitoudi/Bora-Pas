@@ -10,9 +10,6 @@ export default function UserPage() {
   
   return (
     <>
-    <Head>
-      <title>BORA PAS - Prepare-se pa o Pas UNB</title>
-    </Head>
       <HomePage/>
     </>
   );

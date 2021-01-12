@@ -9,6 +9,7 @@ import Header from '../shared_components/Header'
 import {useRouter} from 'next/router'
 
 import Link from 'next/link'
+import Head from "next/head";
 
 let isUserPage = false
 

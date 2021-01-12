@@ -45,10 +45,10 @@ export default function SignInModal({ setModalState }) {
         return;
       }
 
-      if (inputFieldValues[prop].length > 20 && prop !== "email") {
+      /*if (inputFieldValues[prop].length > 20 && prop !== "email") {
         setErrorMsg(`${prop} deve ter no máximo 20 caracteres `);
         return;
-      }
+      }*/
 
       if (inputFieldValues[prop].length < MIN_LENGTH) {
         setErrorMsg(`${prop} deve ter no máximo 20 caracteres `);

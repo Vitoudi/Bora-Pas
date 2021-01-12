@@ -51,7 +51,7 @@ export default function SignInModal({ setModalState }) {
       }
 
       if (inputFieldValues[prop].length < MIN_LENGTH) {
-        setErrorMsg(`${prop} deve ter no máximo 6 caracteres `);
+        setErrorMsg(`${prop} deve ter no mínimo 6 caracteres `);
         return;
       }
 

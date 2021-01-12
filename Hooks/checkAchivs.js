@@ -44,7 +44,7 @@ export default function checkAchivs(gameInfo) {
     return subjectObj.subject === subject
   })
 
-  if(currentSubjectObj.length && currentSubjectObj[0].points > 1) {
+  if(currentSubjectObj.length && currentSubjectObj[0].points >= 15) {
     let achivName;
 
     switch(subject) {

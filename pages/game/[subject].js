@@ -304,7 +304,7 @@ export default function SubjectGamePage() {
   if (gameHasEnded) {
     return (
       <div className={styles["game-container"]}>
-        <h1>Pontuação obtida: {pointsInThisGame}</h1>
+        <h1 style={{justifySelf: 'center', alignText: 'center', marginBotton: 10}}>Pontuação obtida: {pointsInThisGame}</h1>
         {newAchiv && (
           <section className={styles["new-achiv-container"]}>
             <h2>

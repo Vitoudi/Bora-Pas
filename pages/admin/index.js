@@ -190,6 +190,7 @@ export default function index() {
     let documentId;
 
     function createQuestionReference() {
+      console.log("document id from question: " + documentId);
       if (questionData.type === "a") {
         console.log(numberOfQuestions)
         firestore
@@ -243,8 +244,8 @@ export default function index() {
           }
         }
         documentId = firestore.collection("questions").doc().id;
-        createQuestionReference();
         createQuestionImageReference();
+        createQuestionReference();
 
         setQuestionData((data) => {
           return { ...data, question: "" };
@@ -265,6 +266,7 @@ export default function index() {
     }
 
     function createQuestionImageReference() {
+      console.log('document id from image: ' + documentId)
       if (!questionImageFile) return;
       storage
         .ref(`questions/${documentId}/questionImage`)

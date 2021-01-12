@@ -394,9 +394,6 @@ export default function SubjectGamePage() {
                       <button data-command="4" className="btn">
                         {currentQuestion.alternatives.alternative4}
                       </button>
-                      <button data-command="5" className="btn">
-                        {currentQuestion.alternatives.alternative5}
-                      </button>
                       <button data-command="jump" className="btn btn-changed">
                         Pular
                       </button></>}

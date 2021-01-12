@@ -132,8 +132,8 @@
 
 .question-container h1 {
     text-align: center;
-    margin-bottom: 30px;
-    font-size: 27px;
+    margin-bottom: 23px;
+    font-size: 20px;
 }
 
 .game-container.started {
@@ -163,9 +163,9 @@
 }
 
 .btns-container button {
-    font-size: 20px;
-    padding: 10px;
-    margin: 10px;
+    font-size: 16px;
+    padding: 8px;
+    margin: 8px;
 }
 
 .btns-container button:hover {
@@ -188,7 +188,7 @@
 }
 
 .btns-container-multiple button {
-    margin: 8px 0;
+    margin: 6px 0;
 }
 
 .turn-result {

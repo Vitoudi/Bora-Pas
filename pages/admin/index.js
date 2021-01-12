@@ -32,7 +32,6 @@ export default function index() {
       alternative2: "",
       alternative3: "",
       alternative4: "",
-      alternative5: "",
     },
   });
 
@@ -192,6 +191,7 @@ export default function index() {
 
     function createQuestionReference() {
       if (questionData.type === "a") {
+        console.log(numberOfQuestions)
         firestore
           .collection("questions")
           .doc(documentId)
@@ -201,23 +201,23 @@ export default function index() {
             alternatives: false,
           })
           .then((result) => {
-            console.log(result);
+            if(window) window.location.reload()
           });
       } else {
         firestore
           .collection("questions")
           .add({ ...questionData, random: numberOfQuestions + 1 })
           .then((result) => {
-            console.log(result);
+            if (window) window.location.reload();
           });
       }
     }
 
     function checkFormFields() {
       const MIN_QUESTION_LENGTH = 6;
-      const MAX_QUESTION_LENGTH = 200;
+      const MAX_QUESTION_LENGTH = 230;
       const MIN_ALTERNATIVE_LENGTH = 1;
-      const MAX_ALTERNATIVE_LENGTH = 50;
+      const MAX_ALTERNATIVE_LENGTH = 200;
 
       if (questionData.question.length > MAX_QUESTION_LENGTH) {
         setAddQuestionMsg(
@@ -386,6 +386,7 @@ export default function index() {
               <option value="literatura">Inglês</option>
               <option value="literatura">Artes</option>
               <option value="literatura">História</option>
+              <option value="literatura">Geografia</option>
               <option value="literatura">Filosofia</option>
               <option value="literatura">Sociologia</option>
               <option value="literatura">Física</option>
@@ -451,16 +452,6 @@ export default function index() {
                     id="alter4"
                   />
                 </label>
-                <label>
-                  Alternativa 5:
-                  <input
-                    onChange={(e) => {
-                      handleAlternativeChange({ alternative5: e.target.value });
-                    }}
-                    type="text"
-                    id="alter5"
-                  />
-                </label>
               </section>
               <label>
                 Alternativa correta:
@@ -473,7 +464,6 @@ export default function index() {
                   <option value="2">2</option>
                   <option value="3">3</option>
                   <option value="3">4</option>
-                  <option value="5">5</option>
                 </select>
               </label>
             </>
@@ -483,7 +473,9 @@ export default function index() {
           </button>
           <p
             className={
-              addQuestionMsg.includes('Problema')? styles['err'] : styles['success']
+              addQuestionMsg.includes("Problema")
+                ? styles["err"]
+                : styles["success"]
             }
             style={{
               marginTop: 10,

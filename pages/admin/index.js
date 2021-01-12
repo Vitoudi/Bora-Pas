@@ -1,5 +1,5 @@
 import Head from "next/head";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { GlobalContext } from "../../context/GlobalContext";
 import {
   auth,
@@ -12,6 +12,7 @@ import LoadingPage from "../LoadingPage";
 import styles from "./admin.module.css";
 
 export default function index() {
+  const inputFileRef = useRef(null)
   const [globalState, setGlobalState] = useContext(GlobalContext);
   const [numberOfQuestions, setNumberOfQuestions] = useState(0);
   const [uid, setUid] = useState("");
@@ -214,28 +215,29 @@ export default function index() {
 
     function checkFormFields() {
       const MIN_QUESTION_LENGTH = 6;
-      const MAX_QUESTION_LENGTH = 30;
-      const MAX_ALTERNATIVE_LENGTH = 20;
+      const MAX_QUESTION_LENGTH = 70;
+      const MIN_ALTERNATIVE_LENGTH = 1;
+      const MAX_ALTERNATIVE_LENGTH = 50;
 
       if (questionData.question.length > MAX_QUESTION_LENGTH) {
         setAddQuestionMsg(
-          `O Enunciado deve conter no máximo ${MAX_QUESTION_LENGTH} caractéres`
+          `Problema: o enunciado deve conter no máximo ${MAX_QUESTION_LENGTH} caracteres`
         );
       } else if (questionData.question.length < MIN_QUESTION_LENGTH) {
         setAddQuestionMsg(
-          `O enunciado deve conter no mínimo ${MIN_QUESTION_LENGTH} caractéres`
+          `Problema: o enunciado deve conter no mínimo ${MIN_QUESTION_LENGTH} caracteres`
         );
       } else if (questionData.type === "c") {
         const fields = questionData.alternatives;
         for (let alternative in fields) {
-          if (fields[alternative].length < MIN_QUESTION_LENGTH) {
+          if (fields[alternative].length < MIN_ALTERNATIVE_LENGTH) {
             setAddQuestionMsg(
-              `Verifique se cada alternativa tem pelo menos ${MIN_QUESTION_LENGTH} caractéres`
+              `Problema: verifique se cada alternativa tem pelo menos ${MIN_ALTERNATIVE_LENGTH} caracteres`
             );
             return;
           } else if (fields[alternative].length > MAX_ALTERNATIVE_LENGTH) {
             setAddQuestionMsg(
-              `Verifique se cada alternativa tem no mínimo ${MI_LENGTH} caractéres`
+              `Problema: verifique se cada alternativa tem no mínimo ${MIN_ALTERNATIVE_LENGTH} caracteres`
             );
             return;
           }
@@ -243,10 +245,22 @@ export default function index() {
         documentId = firestore.collection("questions").doc().id;
         createQuestionReference();
         createQuestionImageReference();
+
+        setQuestionData((data) => {
+          return { ...data, question: "" };
+        });
+        inputFileRef.current.value = ''
+        setAddQuestionMsg("Pergunta cadastrada com sucesso!");
       } else {
         documentId = firestore.collection("questions").doc().id;
         createQuestionReference();
         createQuestionImageReference();
+
+        setQuestionData((data) => {
+          return {...data, question: ''}
+        });
+        inputFileRef.current.value = "";
+        setAddQuestionMsg("Pergunta cadastrada com sucesso!");
       }
     }
 
@@ -327,6 +341,7 @@ export default function index() {
           <label>
             Imagem (Opcional): <br />
             <input
+              ref={inputFileRef}
               style={{ marginTop: 10 }}
               onChange={handleFile}
               type="file"
@@ -336,7 +351,7 @@ export default function index() {
           </label>
 
           <label>
-            Etapapa do PAS:
+            Etapa do PAS:
             <select
               onChange={handlePasTypeChange}
               name="select-type"
@@ -466,7 +481,18 @@ export default function index() {
           <button onClick={handleClick} className="btn">
             Submeter pergunta
           </button>
-          <p>{addQuestionMsg}</p>
+          <p
+            className={
+              addQuestionMsg.includes('Problema')? styles['err'] : styles['success']
+            }
+            style={{
+              marginTop: 10,
+              textAlign: "center",
+              justifySelf: "center",
+            }}
+          >
+            {addQuestionMsg}
+          </p>
         </section>
       </div>
     </>

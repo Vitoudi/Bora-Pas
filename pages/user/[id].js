@@ -236,6 +236,17 @@ export default function UserInfoPage() {
       .update({ privateInfo: checked? false : true });
   }
 
+  function getSubjects(userSubjects) {
+    return userSubjects
+      .filter((subject) => {
+        return subject.points > 15 && subject.subject !== "geral";
+      })
+      .slice(0, 3)
+      .map((subject) => convertSubjectNameToUTF8(subject.subject).toLowerCase())
+      .join(", ")
+      .toString();
+  }
+
   if (isLoading) {
     return <LoadingPage />;
   }
@@ -343,7 +354,10 @@ export default function UserInfoPage() {
           </section>
 
           {isCurrentUserPage || !userInfo.privateInfo ? (
-            <section className={styles["user-extra-info-container"]}>
+            <section
+              style={{ maxWidth: 400 }}
+              className={styles["user-extra-info-container"]}
+            >
               <div className={styles["points-container"]}>
                 <h3>
                   Pontos: <span>{userInfo.points}</span>
@@ -353,26 +367,17 @@ export default function UserInfoPage() {
                 Se dá melhor em:{" "}
                 <span>
                   {userInfo.subjects.length
-                    ? userInfo.subjects
-                        .filter((subject) => {
-                          return (
-                            subject.points > 15 && subject.subject !== "geral"
-                          );
-                        })
-                        .slice(0, 3)
-                        .map((subject) =>
-                          convertSubjectNameToUTF8(
-                            subject.subject
-                          ).toLowerCase()
-                        )
-                        .join(", ")
-                        .toString()
+                    ? getSubjects(userInfo.subjects) || 'sem dados o suficiente'
                     : "sem dados o sufiiente"}
                 </span>
               </p>
               <p>
                 Conquistas:{" "}
-                <span>{userInfo.achivs.length === 0 && "Ainda nada"}</span>
+                <span>
+                  {userInfo.achivs.length === 0
+                    ? "Ainda nada..."
+                    : userInfo.achivs.join(", ")}
+                </span>
               </p>
             </section>
           ) : (

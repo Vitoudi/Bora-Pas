@@ -1,15 +1,15 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
 import { auth, storage, firestore } from "../../../firebase/firebaseContext";
 import userDefaultImage from "../../../public/images/user-default-image.png";
-import {GlobalContext} from '../../../context/GlobalContext'
+import { GlobalContext } from "../../../context/GlobalContext";
 
 export default function SignInModal({ setModalState }) {
-    const refContainer = useRef('')
-    const [globalState, setGlobalState] = useContext(GlobalContext)
+  const refContainer = useRef("");
+  const [globalState, setGlobalState] = useContext(GlobalContext);
 
   const [errorMsg, setErrorMsg] = useState("");
-  const [imageFile, setImageFile] = useState('');
-  const [defaultImageFile, setDefaultImageFile] = useState('')
+  const [imageFile, setImageFile] = useState("");
+  const [defaultImageFile, setDefaultImageFile] = useState("");
   const [userImagePreview, setUserImagePreview] = useState(userDefaultImage);
   const [inputFieldValues, setInputFieldValues] = useState({
     username: "",
@@ -22,95 +22,118 @@ export default function SignInModal({ setModalState }) {
     checkInputFields();
   }
 
-  useEffect(()=> {
+  useEffect(() => {
     let metadata = {
-      type: 'image/png'
-    }
+      type: "image/png",
+    };
 
     fetch(userDefaultImage)
-      .then((response)=> {
-        return response.blob()
-      }).then((blob)=> {
-        const file = new File([blob], "default.png", metadata);
-        setDefaultImageFile(file)
+      .then((response) => {
+        return response.blob();
       })
-  }, [])
+      .then((blob) => {
+        const file = new File([blob], "default.png", metadata);
+        setDefaultImageFile(file);
+      });
+  }, []);
 
   function checkInputFields() {
     const MIN_LENGTH = 6;
     for (let prop in inputFieldValues) {
       if (inputFieldValues[prop].length === 0) {
-        setErrorMsg(`please enter a ${prop} value`);
+        setErrorMsg(`Por favor, preencha o campo: ${prop}`);
+        return;
+      }
+
+      if (inputFieldValues[prop].length > 20 && prop !== "email") {
+        setErrorMsg(`${prop} deve ter no máximo 20 caracteres `);
         return;
       }
 
       if (inputFieldValues[prop].length < MIN_LENGTH) {
-        setErrorMsg(`${prop} is too short`);
+        setErrorMsg(`${prop} deve ter no máximo 20 caracteres `);
         return;
       }
 
-      if(inputFieldValues.password !== inputFieldValues.confirmPassword) {
-          setErrorMsg('passwords are different')
-          return
+      if (inputFieldValues.password !== inputFieldValues.confirmPassword) {
+        setErrorMsg("Senhas são diferentes");
+        return;
       }
 
-      signInUser()
+      signInUser();
     }
   }
 
   function signInUser() {
-      const {email, password} = inputFieldValues
-      auth
-        .createUserWithEmailAndPassword(email, password)
-            .then(() => {
-                uploadImageFile()
-                createUserReferences()
+    const { email, password } = inputFieldValues;
+    auth
+      .createUserWithEmailAndPassword(email, password)
+      .then(() => {
+        uploadImageFile();
+        createUserReferences();
 
-                setGlobalState((globalState) => {
-                  return {
-                    ...globalState,
-                    user: { ...globalState.user, isLoggedIn: true },
-                  };
-                });
-            })
-            .catch(err => {
-                setErrorMsg(err.message)
-            })
-
+        setGlobalState((globalState) => {
+          return {
+            ...globalState,
+            user: { ...globalState.user, isLoggedIn: true },
+          };
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        setTimeout(() => {
+          let msg;
+          switch (err.code) {
+            case "auth/email-already-in-use":
+              msg = "Email já pertence a uma conta existente";
+              break;
+            case "auth/invalid-email":
+              msg = "Email mal formatado";
+              break;
+            case "auth/weak-password":
+              msg = "A senha deve conter no mínimo 6 caracteres";
+          }
+          setErrorMsg(msg ? msg : err.message);
+        }, 600);
+      });
 
     function uploadImageFile() {
-        console.log(imageFile)
-        storage.ref(`users/${auth.currentUser.uid}/profileImage`).put(imageFile? imageFile : defaultImageFile)
+      storage
+        .ref(`users/${auth.currentUser.uid}/profileImage`)
+        .put(imageFile ? imageFile : defaultImageFile);
     }
 
     function createUserReferences() {
-        const {username} = inputFieldValues
-        firestore.collection('users').doc(auth.currentUser.uid).set({
-            username,
-            bio: '',
-            points: 0,
-            pasType: 1,
-            achivs: [],
-            following: [],
-            subjects: [],
-            privateInfo: false
-        }).then(output => {
-          console.log(output)
+      const { username } = inputFieldValues;
+      firestore
+        .collection("users")
+        .doc(auth.currentUser.uid)
+        .set({
+          username,
+          bio: "",
+          points: 0,
+          pasType: 1,
+          achivs: [],
+          following: [],
+          subjects: [],
+          privateInfo: false,
         })
+        .then((output) => {
+          console.log(output);
+        });
     }
   }
 
-
   function openFileWindow() {
-      const fileInput = refContainer.current
-      fileInput.click();
+    const fileInput = refContainer.current;
+    fileInput.click();
   }
 
   function setPreviewImage(e) {
-      if (!e.target || !e.target.files[0]) return;
-        setImageFile(e.target.files[0]);
+    if (!e.target || !e.target.files[0]) return;
+    setImageFile(e.target.files[0]);
 
-      const imagePreview = e.target.files[0];
+    const imagePreview = e.target.files[0];
     /*const reader = new FileReader()
     reader.readAsDataURL();*/
 
@@ -118,7 +141,6 @@ export default function SignInModal({ setModalState }) {
     /*reader.onload= ()=> {
         setUserImagePreview(reader.result)
     }*/
-
   }
 
   return (

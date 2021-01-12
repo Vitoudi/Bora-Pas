@@ -183,7 +183,14 @@ export default function HomePage() {
               <h4>Suas conquistas:</h4>
               {(!isLoadingData && currentUser)
                 ? currentUser.achivs.length
-                  ? "achivs here"
+                  ? (
+                    currentUser.achivs.slice(0, 3).map(achiv=> {
+                      return <p style={{margin: '10px 0'}}>{achiv}</p>
+                    },
+                    <p>...</p>
+                    )
+                    
+                  )
                   : "você ainda não tem conquistas"
                 : "..."}
             </section>

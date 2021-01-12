@@ -215,7 +215,7 @@ export default function index() {
 
     function checkFormFields() {
       const MIN_QUESTION_LENGTH = 6;
-      const MAX_QUESTION_LENGTH = 150;
+      const MAX_QUESTION_LENGTH = 200;
       const MIN_ALTERNATIVE_LENGTH = 1;
       const MAX_ALTERNATIVE_LENGTH = 50;
 

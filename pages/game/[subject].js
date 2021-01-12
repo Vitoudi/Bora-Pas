@@ -243,7 +243,7 @@ export default function SubjectGamePage() {
         resetGame()
 
         
-      }, .2 * 1000 * 60));
+      }, 2 * 1000 * 60));
     }
   }
 

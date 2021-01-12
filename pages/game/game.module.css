@@ -108,7 +108,7 @@
 .time-bar.start-time {
     animation-name: start-time;
     animation-timing-function: linear;
-    animation-duration: 12s;
+    animation-duration: 160s;
 }
 
 @keyframes start-time {

@@ -1051,7 +1051,7 @@ header .search-actions img {
 @keyframes slide-smo {
   from {
     opacity: 0;
-    transform: translateX(500px);
+    transform: translateX(0px);
   }
 }
 

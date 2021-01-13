@@ -131,3 +131,158 @@
 .check-private-input:checked ~ .check-ptivete-fill::after {
     transform: translateX(15px);
 }
+
+
+
+
+
+
+
+
+
+
+@media only screen and (max-width: 650px) {
+    .wrapper {
+    display: grid;
+    grid-template-areas: 
+    'basic-info'
+    'extra-info'
+    ;
+    grid-template-columns: 1fr;
+    
+}
+
+
+.user-basic-info-container {
+    grid-area: basic-info;
+    display: grid;
+    justify-content: center;
+    padding-right: 0px;
+    width: 80%;
+
+    border-right: none;
+    justify-self: center;
+}
+
+.user-basic-info-container .user-image {
+    width: 120px;
+    height: 120px;
+    border-radius: 120px;
+}
+
+.user-basic-info-container h2 {
+    text-align: center;
+    margin: 5px 0;
+}
+
+.user-basic-info-container p {
+    margin-bottom: 10px;
+    text-align: center;
+    color: rgb(121, 121, 121);
+}
+
+.user-basic-info-container .image-container h3 {
+    color: white;
+    transform: translate(37%, -550%);
+}
+
+.image-container {
+    justify-self: center;
+    max-height: 260px;
+}
+
+
+
+
+
+
+
+.user-extra-info-container {
+    justify-self: center;
+    margin-top: 25px;
+    margin-left: 0px;
+    width: 80%;
+    display: grid;
+    justify-content: center;
+}
+
+.user-extra-info-container .points-container{
+    text-align: center;
+    font-size: 30px;
+    color: rgb(65, 65, 65);
+    margin-bottom: 10px;
+}
+
+.user-extra-info-container p {
+    font-weight: bold;
+    font-size: 18px;
+    margin: 10px 0;
+    text-align: center;
+}
+
+.user-extra-info-container p span {
+    font-weight: normal;
+}
+
+.user-info-username-input {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+
+.private-area {
+    justify-self: center;
+    display: flex;
+    justify-content: center;
+    
+    margin-top: 20px;
+}
+
+.private-area p {
+    color: #929292;
+    font-size: 14px;
+}
+
+.check-private-container {
+    margin-right: 10px;
+    width: 30px;
+    height: 15px;
+    border-radius: 7.5px;
+
+    cursor: pointer;
+}
+
+.check-private-input {
+    display: none;
+}
+
+.check-private-input:checked ~ .check-ptivete-fill {
+    background-color: var(--main-color);
+}
+ 
+.check-ptivete-fill {
+    position: relative;
+    width: 30px;
+    height: 15px;
+    border-radius: 10px;
+    background-color: #dddddd;
+    transition: background 0.2s;
+}
+
+.check-ptivete-fill::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 15px;
+    width: 15px;
+    background-color: white;
+    box-shadow: 0 0 10px rgb(49, 49, 49);
+    border-radius: 7.5px;
+    transition: transform;
+}
+
+.check-private-input:checked ~ .check-ptivete-fill::after {
+    transform: translateX(15px);
+}
+}

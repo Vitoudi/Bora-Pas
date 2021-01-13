@@ -79,7 +79,7 @@ export default function HomePage() {
   return (
     <div className="home-page-container">
       <Link href="/game">
-        <a>
+        <a className="anchor-from-big">
           <Snippet
             classList="main-snippet"
             text="Testar meus conhecimentos"

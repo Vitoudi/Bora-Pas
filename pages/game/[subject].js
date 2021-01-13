@@ -104,7 +104,14 @@ export default function SubjectGamePage() {
             .ref(`/questions/${questions[currentIndex].id}/questionImage`)
             .getDownloadURL()
             .then((url) => {
-              setCurrentQuestion({ ...questions[currentIndex], image: url });
+              let img = new Image()
+              img.src = url
+              img.onload = () => setCurrentQuestion({
+                ...questions[currentIndex],
+                image: img.src,
+              });
+              
+              
             });
         } else {
           setCurrentQuestion(questions[currentIndex]);
@@ -356,7 +363,7 @@ export default function SubjectGamePage() {
           >
             {currentQuestion && (
               <>
-              {currentQuestion.hasImage && <img className={styles['question-image']} src={currentQuestion.image} alt=""/>}
+              {currentQuestion.hasImage && <img className={styles['question-image']} src={currentQuestion.image} alt="imagem da questão"/>}
                 <h1 className={styles["question-title"]}>
                   {currentQuestion.question}
                 </h1>

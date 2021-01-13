@@ -935,6 +935,114 @@ header nav .nav-item {
 
 
 @media only screen and (max-width: 650px) {
+  /*LOGO*/
+.logo {
+  color: white;
+}
+
+.logo span {
+  color: var(--main-color);
+  text-shadow: 1px 1px rgb(120, 231, 185);
+}
+
+
+
+
+/*Sign up/ Login page*/
+.modal {
+  align-self: center;
+  justify-self: center;
+
+  width: 85%;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: var(--shadow-1);
+  background-color: rgb(245, 245, 245);
+  display: grid;
+}
+
+.modal-user-image-place {
+  display: grid;
+  justify-content: center;
+  margin: 10px 0;
+
+  cursor: pointer;
+}
+
+.modal-user-image-place img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 120px;
+}
+
+.modal-user-image-place:hover {
+  filter: brightness(60%);
+}
+
+.modal-user-info-container {
+  margin: 10px 0;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form label {
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.modal .btn {
+  justify-self: end;
+}
+
+.error-msg-place {
+  color: rgb(190, 16, 16);
+  font-weight: bold;
+  text-align: center;
+  margin-top: 10px;
+  padding: 10px;
+  background-color: rgb(226, 226, 226);
+  border-radius: 20px;
+}
+
+
+
+
+/*Page Mode Msg*/
+.page-mode-msg {
+  font-weight: bold;
+  color: rgba(255, 255, 255, 0.76);
+  justify-self: center;
+  margin-top: 10px;
+}
+
+.page-mode-msg span {
+  color: rgb(83, 207, 83);
+  font-size: 17px;
+
+  cursor: pointer;
+}
+
+.login-page {
+  background-color: rgb(68, 68, 68);
+  background-image: url('../public/images/estudante.jpg');
+  background-size: 330%;
+  min-height: 107vh;
+  background-position-x: 60%;
+}
+
+
+
+.display-none {
+  display: none;
+}
+
+
+
+
   /*USER PAGE!*/
 .user-page {
   display: grid;
@@ -1057,7 +1165,7 @@ header .search-actions img {
 
 header input {
   border: none;
-  font-size: 20px;
+  font-size: 15px;
   justify-self: start;
   margin-left: 15px;
   outline: none;
@@ -1358,7 +1466,7 @@ a.info-snippet {
   }
   to {
     opacity: 0;
-    transform: translateX(500px);
+    transform: translateX(0px);
   }
 }
 

@@ -990,7 +990,7 @@ header nav .nav-item {
 
 .search-place-container {
   margin-left: auto;
-  margin-right: 20px;
+  margin-right: 15px;
   cursor: pointer;
 }
 
@@ -1158,6 +1158,7 @@ header input {
 }
 
 .big {
+  margin-top: 5px;
   min-width: 0px;
   grid-area: main-snippet;
   height: unset;

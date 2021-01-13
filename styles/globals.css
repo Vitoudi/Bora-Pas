@@ -1030,7 +1030,6 @@ header nav .nav-item {
   background-color: rgb(68, 68, 68);
   background-image: url('../public/images/estudante.jpg');
   background-size: 330%;
-  min-height: 107vh;
   background-position-x: 60%;
 }
 

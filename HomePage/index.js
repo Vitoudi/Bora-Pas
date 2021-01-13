@@ -179,7 +179,7 @@ export default function HomePage() {
               </h3>
             </section>
 
-            <section>
+            <section className="achivs-section">
               <h4>Suas conquistas:</h4>
               {(!isLoadingData && currentUser)
                 ? currentUser.achivs.length
@@ -189,7 +189,6 @@ export default function HomePage() {
                     },
                     <p>...</p>
                     )
-                    
                   )
                   : "você ainda não tem conquistas"
                 : "..."}

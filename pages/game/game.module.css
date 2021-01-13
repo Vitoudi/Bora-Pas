@@ -258,3 +258,9 @@
         background-color: var(--main-color);
     }
 }
+
+
+@media only screen and (max-width: 1040px) {
+.pas-type-conatiner div h2 {
+    padding-top: 10px;
+}}

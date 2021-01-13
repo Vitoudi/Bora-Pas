@@ -94,7 +94,7 @@ export default function index() {
   function handleSubmit(e) {
     e.preventDefault();
     const addAdminRole = functions.httpsCallable("addAdminRole");
-    addAdminRole({ email }).then((result) => {
+    addAdminRole({ email, password }).then((result) => {
       setAddAdminMsg(result.data.message);
     });
   }

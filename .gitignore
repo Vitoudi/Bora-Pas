@@ -34,4 +34,4 @@ yarn-error.log*
 .vercel
 
 #secret
-secret.json
+/secret.json

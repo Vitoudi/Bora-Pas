@@ -264,3 +264,255 @@
 .pas-type-conatiner div h2 {
     padding-top: 10px;
 }}
+
+
+@media only screen and (max-width: 650px) {
+    .game-menu-container {
+    justify-self: center;
+    display: grid;
+    justify-content: center;
+}
+
+.pas-type-conatiner {
+    display: flex;
+    justify-content: center;
+    justify-self: center;
+}
+
+.pas-type-conatiner div {
+    width: 65px;
+    margin: 12px 20px;
+    height: 25px;
+    text-align: left;
+    padding: 0;
+    padding-bottom: 10px;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+    align-content: center;
+    margin-bottom: 0;
+    margin-left: 5px;
+    color: rgb(58, 58, 58);
+}
+
+.pas-type-conatiner div h2 {
+    font-size: 12px;
+    text-align: center;
+}
+
+.area {
+    margin: 20px 0;
+    justify-content: center;
+    text-align: center;
+}
+
+.area-title {
+    /*color: var(--main-color);*/
+}
+
+.geral-container {
+    margin-left: 60px;
+}
+
+.subjects-container {
+    justify-self: center;
+    width: 80vw;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.game-container {
+    min-height: 75vh;
+    display: grid;
+    justify-self: center;
+    justify-content: center;
+    align-content: center;
+}
+
+.start-game-btn {
+    padding: 10px;
+    font-size: 20px;
+    width: 50%;
+    justify-self: center;
+
+    animation-name: dancing;
+    animation-iteration-count: infinite;
+    animation-fill-mode: both;
+    animation-direction: alternate;
+    animation-play-state: running;
+    animation-duration: .5s;
+    animation-timing-function: ease-out;
+
+    min-width: 120px;
+}
+
+.subject-title {
+    text-align: center;
+    font-size: 55px;
+    margin-bottom: 20px;
+}
+
+
+
+.time-bar {
+    width: 5%;
+    display: flex;
+    height: 40px;
+    color: white;
+    font-weight: bold;
+    padding: 8px 30px;
+    justify-content: end;
+
+    background-color: var(--main-color);
+}
+
+.time-bar p {
+    position: absolute;
+}
+
+.time-bar.start-time {
+    animation-name: start-time;
+    animation-timing-function: linear;
+    animation-duration: 160s;
+}
+
+@keyframes start-time {
+    to {
+        width: 100%;
+    }
+}
+
+.end-time {
+    width: 0.1%;
+}
+
+.question-container {
+    min-height: 60vh;
+    max-width: 80vw;
+    display: grid;
+    justify-self: center;
+    justify-content: center;
+    align-content: center;
+}
+
+.question-container h1 {
+    text-align: center;
+    margin-bottom: 23px;
+    font-size: 20px;
+}
+
+.game-container.started {
+    height: 10px;
+    align-content: start;
+}
+
+.game-container.started h3 {
+    text-align: center;
+    margin: 14px;
+    font-size: 21px;
+    color: rgb(182, 182, 182);
+}
+
+.question-image {
+    width: 260px;
+    justify-self: center;
+    border-radius: 15px;
+    margin-bottom: 15px;
+    object-fit: cover;
+}
+
+.btns-container {
+    justify-self: center;
+    display: flex;
+    justify-content: center;
+}
+
+.btns-container button {
+    font-size: 16px;
+    padding: 8px;
+    margin: 8px;
+}
+
+.btns-container button:hover {
+    transition: .3s;
+    transform: scale(1.1);
+}
+
+.turn-points-container {
+    text-align: center;
+    justify-self: center;
+    margin-top: 30px;
+    font-weight: bold;
+}
+
+.btns-container-multiple {
+    transition: .4s;
+    transform: scale(1.1);
+    display: flex;
+    flex-direction: column;
+}
+
+.btns-container-multiple button {
+    margin: 6px 0;
+}
+
+.turn-result {
+    position: absolute;
+    left: 50%;
+    top: 27.5%;
+    transform: translate(-50%, -27.5%);
+    height: 30px;
+    margin-bottom: 20px;
+    text-align: center;
+    justify-self: center;
+    color: var(--main-color);
+    font-size: 35px;
+    animation-name: appear-1;
+    animation-duration: .4s;
+    animation-direction: alternate;
+    animation-iteration-count: 2;
+}
+
+.hide-result {
+    animation-name: desappear-1;
+    animation-duration: 1s;
+   
+}
+
+.question-transtion {
+    animation-name: question-transition;
+    animation-duration: .8s;
+}
+
+@keyframes appear-1{
+    from {
+        opacity: 0;
+        transform: scale(0);
+    }
+    to {
+        opacity: 100%;
+        transform: scale(1);
+    }
+}
+
+@keyframes question-transition {
+    to {
+        transform: translateX(200px);
+        opacity: 0;
+    }
+}
+
+.wrong {
+    color: rgb(167, 14, 14);
+}
+
+.new-achiv-container {
+    text-align: center;
+    margin-top: 10px;
+    padding: 20px;
+    border-radius: 10px;
+    color: white;
+    animation: flear .6s infinite alternate;
+}
+}

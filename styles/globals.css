@@ -1236,7 +1236,8 @@ margin-bottom: 30px;
   color: rgb(54, 54, 54);
   justify-self: center;
   width: 280px;
-  min-height: 180px;
+  min-height: 50px;
+  padding-bottom: 20px;
 }
 
 .small.full-text {
@@ -1246,6 +1247,7 @@ margin-bottom: 30px;
   align-items: center;
   text-align: center;
   align-content: center;
+  min-height: 180px;
   font-size: 40px;
   width: 70vw;
 }

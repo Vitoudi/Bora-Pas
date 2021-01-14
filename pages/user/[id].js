@@ -378,7 +378,7 @@ export default function UserInfoPage() {
                     ></input>
                     <div className={styles["check-ptivete-fill"]}></div>
                   </label>
-                  <p>Manter pontuação privada</p>
+                  <p>Manter dados privados</p>
                 </div>
               </>
             )}
@@ -406,7 +406,7 @@ export default function UserInfoPage() {
                       {isFollowing.slice(0, 3).map((user) => {
                         return (
                           <span onClick={() => redirectToUserPage(user.id)}>
-                            {user.username},{" "}
+                            <a>{user.username}, </a>
                           </span>
                         );
                       })}
@@ -442,7 +442,7 @@ export default function UserInfoPage() {
             </section>
           ) : (
             <section className={styles["user-extra-info-container"]}>
-              <h2>Pontuação privada</h2>
+              <h2 style={{textAlign: 'center'}}>Dados privados</h2>
             </section>
           )}
         </div>

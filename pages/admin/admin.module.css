@@ -51,3 +51,26 @@
 .success {
     color: rgb(12, 83, 12);
 }
+
+
+@media only screen and (max-width: 640px) {
+    .admin-painel-container {
+    display: grid;
+    justify-content: center;
+    padding: 30px;
+
+    grid-template-areas:
+     'add-admin'
+     'add-question';
+}
+
+.add-admin-area {
+    margin-bottom: 40px;
+}
+
+
+.add-question-container {
+    margin-left: 10px;
+    margin-bottom: 30px;
+}
+}

@@ -274,10 +274,10 @@ export default function UserInfoPage() {
 
   function redirectToUserPage(id) {
     let userId = id
-    if(window && typeof(id) !== 'object') router.push('/user/' + userId).then(() => {
+    /*if(typeof(id) !== 'object') router.push('/user/' + userId).then(() => {
       //router.reload()
-    })
-    //if(window && typeof(id) !== 'object') window.location.href = '/user/' + userId
+    })*/
+    if(window && typeof(id) !== 'object') window.location.href = '/user/' + userId
   }
 
   if (isLoading) {
@@ -400,7 +400,7 @@ export default function UserInfoPage() {
                 <div className={styles["following-container"]}>
                   <p>
                     Segue{" "}
-                    <span onClick={redirectToUserPage}>
+                    <span style={{cursor: 'pointer'}} onClick={redirectToUserPage}>
                       {isFollowing.slice(0, 3).map((user) => {
                         return (
                           <span onClick={() => redirectToUserPage(user.id)}>

@@ -10,6 +10,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useSetPage } from "../../Hooks/useSetPage";
 import { useGetUserImages } from "../../Hooks/useGetUserImages";
+import Head from "next/head";
 
 export default function Ranking({ user }) {
   const router = useRouter()
@@ -165,12 +166,21 @@ export default function Ranking({ user }) {
 
   return (
     <>
+      <Head>
+        <title>BORA PAS - Ranking</title>
+      </Head>
       <div
         ref={refContainer}
         className={styles["ranking-page-container"]}
         onScroll={handleScroll}
       >
-        <h1 style={{margin: '25px 0px 20px 0', justifySelf: 'center'}}>{isFollowingPage ? isCurrentUserFollowingPage? 'Você segue' : `${username} segue:` : "Ranking Geral:"}</h1>
+        <h1 style={{ margin: "25px 0px 20px 0", justifySelf: "center" }}>
+          {isFollowingPage
+            ? isCurrentUserFollowingPage
+              ? "Você segue"
+              : `${username} segue:`
+            : "Ranking Geral:"}
+        </h1>
         <section className={styles["users"]}>
           {users.map((user) => {
             return (

@@ -1,3 +1,4 @@
+import Head from "next/head";
 import { useRouter } from "next/router";
 import React, { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "../../context/GlobalContext";
@@ -310,21 +311,38 @@ export default function SubjectGamePage() {
 
   if (gameHasEnded) {
     return (
-      <div className={styles["game-container"]}>
-        <h1 style={{justifySelf: 'center', alignText: 'center', marginBotton: 10}}>Pontuação obtida: {pointsInThisGame}</h1>
-        {newAchiv && (
-          <section className={styles["new-achiv-container"]}>
-            <h2>
-              Nova conquista: <span>{newAchiv[0]}</span>
-            </h2>
-          </section>
-        )}
-      </div>
+      <>
+        <Head>
+          <title>BORA PAS - {subject}</title>
+        </Head>
+        <div className={styles["game-container"]}>
+          <h1
+            style={{
+              justifySelf: "center",
+              alignText: "center",
+              marginBotton: 10,
+            }}
+          >
+            Pontuação obtida: {pointsInThisGame}
+          </h1>
+          {newAchiv && (
+            <section className={styles["new-achiv-container"]}>
+              <h2>
+                Nova conquista: <span>{newAchiv[0]}</span>
+              </h2>
+            </section>
+          )}
+        </div>
+      </>
     );
   }
 
   if (!gameHasStarted) {
     return (
+    <>
+      <Head>
+        <title>BORA PAS - {subject}</title>
+      </Head>
       <div className={styles["game-container"]}>
         <h1 className={styles["subject-title"]}>{subject}</h1>
         <button
@@ -334,12 +352,16 @@ export default function SubjectGamePage() {
           Começar
         </button>
       </div>
-    );
+      );
+    </>)
   }
 
   if (gameHasStarted) {
     return (
       <>
+        <Head>
+          <title>BORA PAS - {subject}</title>
+        </Head>
         <div
           className={`${styles["time-bar"]} ${
             gameIsRunning ? styles["start-time"] : styles["end-time"]
@@ -352,7 +374,10 @@ export default function SubjectGamePage() {
           <h2
             className={`${
               turnResult ? styles["turn-result"] : styles["hide-result"]
-            } ${turnResult && (turnResult[0] === "-"? styles["wrong"] : styles["rigth"])}`}
+            } ${
+              turnResult &&
+              (turnResult[0] === "-" ? styles["wrong"] : styles["rigth"])
+            }`}
           >
             {turnResult}
           </h2>
@@ -363,7 +388,13 @@ export default function SubjectGamePage() {
           >
             {currentQuestion && (
               <>
-              {currentQuestion.hasImage && <img className={styles['question-image']} src={currentQuestion.image} alt="imagem da questão"/>}
+                {currentQuestion.hasImage && (
+                  <img
+                    className={styles["question-image"]}
+                    src={currentQuestion.image}
+                    alt="imagem da questão"
+                  />
+                )}
                 <h1 className={styles["question-title"]}>
                   {currentQuestion.question}
                 </h1>
@@ -388,22 +419,28 @@ export default function SubjectGamePage() {
                       onClick={handleClick}
                       className={styles["btns-container-multiple"]}
                     >
-                      {currentQuestion.alternatives &&
-                      <><button data-command="1" className="btn">
-                        {currentQuestion.alternatives.alternative1}
-                      </button>
-                      <button data-command="2" className="btn">
-                        {currentQuestion.alternatives.alternative2}
-                      </button>
-                      <button data-command="3" className="btn">
-                        {currentQuestion.alternatives.alternative3}
-                      </button>
-                      <button data-command="4" className="btn">
-                        {currentQuestion.alternatives.alternative4}
-                      </button>
-                      <button data-command="jump" className="btn btn-changed">
-                        Pular
-                      </button></>}
+                      {currentQuestion.alternatives && (
+                        <>
+                          <button data-command="1" className="btn">
+                            {currentQuestion.alternatives.alternative1}
+                          </button>
+                          <button data-command="2" className="btn">
+                            {currentQuestion.alternatives.alternative2}
+                          </button>
+                          <button data-command="3" className="btn">
+                            {currentQuestion.alternatives.alternative3}
+                          </button>
+                          <button data-command="4" className="btn">
+                            {currentQuestion.alternatives.alternative4}
+                          </button>
+                          <button
+                            data-command="jump"
+                            className="btn btn-changed"
+                          >
+                            Pular
+                          </button>
+                        </>
+                      )}
                     </div>
                   )}
                 </section>

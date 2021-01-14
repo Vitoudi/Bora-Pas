@@ -412,7 +412,11 @@ export default function UserInfoPage() {
                       })}
                       {isFollowing.length > 3 && (
                         <span style={{ color: "var(--main-color)" }}>
-                          mais...
+                          <Link href={`/ranking?type=following&id=${id}`} replace>
+                            <a>
+                              <span>mais...</span>
+                            </a>
+                          </Link>
                         </span>
                       )}
                     </span>

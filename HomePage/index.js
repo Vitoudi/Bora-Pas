@@ -135,7 +135,7 @@ export default function HomePage() {
 
       <Snippet classList="rank-2-snippet" color="white" size="normal">
         {/*<SimpleBar style={{ maxHeight: 210 }} forceVisible="y" autoHide={true}>*/}
-        <Link href="/ranking?type=following">
+        <Link href={`/ranking?type=following&id=${currentUser.id}`}>
           <div className={`rank-snippet ${isLoadingData && "grid"}`}>
             <h2>Você segue:</h2>
             {!isLoadingData ? (
@@ -181,15 +181,11 @@ export default function HomePage() {
 
             <section className="achivs-section">
               <h4>Suas conquistas:</h4>
-              {(!isLoadingData && currentUser)
+              {!isLoadingData && currentUser
                 ? currentUser.achivs.length
-                  ? (
-                    currentUser.achivs.slice(0, 3).map(achiv=> {
-                      return <p style={{margin: '10px 0'}}>{achiv}</p>
-                    },
-                    <p>...</p>
-                    )
-                  )
+                  ? currentUser.achivs.slice(0, 3).map((achiv) => {
+                      return <p style={{ margin: "10px 0" }}>{achiv}</p>;
+                    }, <p>...</p>)
                   : "você ainda não tem conquistas"
                 : "..."}
             </section>

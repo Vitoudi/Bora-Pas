@@ -25,6 +25,8 @@ export default function Ranking({ user }) {
   const [isDataEmpty, setIsDataEmpty] = useState(false);
   const refContainer = useRef("");
   const [isFollowingPage, setIsFollowinPage] = useState(false);
+  const [isCurrentUserFollowingPage, setIsCurrentUserFollowingPage] = useState(false)
+  const [username, setUsername] = useState('')
 
   useSetPage({ page: "Ranking" });
 
@@ -51,8 +53,15 @@ export default function Ranking({ user }) {
       setIsLoading(false);
 
       if (router.query.type === 'following') {
+        const id = router.query.id
+        firestore.doc('users/' + id).get()
+          .then(userCred => setUsername(userCred.data().username))
+
+        
+        if(id === uid) setIsCurrentUserFollowingPage(true)
+
         setIsFollowinPage(true)
-        loadFollowingUsers(auth.currentUser.uid);
+        loadFollowingUsers(id);
       } else if (router.query.type === 'default'){
         setIsFollowinPage(false)
         loadContent();
@@ -161,7 +170,7 @@ export default function Ranking({ user }) {
         className={styles["ranking-page-container"]}
         onScroll={handleScroll}
       >
-        <h1 style={{margin: '25px 0px 20px 0', justifySelf: 'center'}}>{isFollowingPage ? "Você segue:" : "Ranking Geral:"}</h1>
+        <h1 style={{margin: '25px 0px 20px 0', justifySelf: 'center'}}>{isFollowingPage ? isCurrentUserFollowingPage? 'Você segue' : `${username} segue:` : "Ranking Geral:"}</h1>
         <section className={styles["users"]}>
           {users.map((user) => {
             return (

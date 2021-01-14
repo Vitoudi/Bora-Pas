@@ -1249,7 +1249,10 @@ margin-bottom: 30px;
   align-content: center;
   min-height: 180px;
   font-size: 40px;
-  width: 70vw;
+}
+
+.full-text {
+    min-width: 280px !important;
 }
 
 .small.full-text h2 {

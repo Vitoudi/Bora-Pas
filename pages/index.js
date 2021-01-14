@@ -5,6 +5,7 @@ import { GlobalContext } from "../context/GlobalContext";
 import {auth} from '../firebase/firebaseContext'
 import LoadingPage from "./LoadingPage/index";
 import Header from '../shared_components/Header'
+//import sw from '../service-worker'
 
 import {useRouter} from 'next/router'
 
@@ -29,6 +30,13 @@ export default function CurrentPage() {
       }
       setIsLoading(false);
     });
+
+    /*if(navigator) navigator.serviceWorker
+      .register("../service-worker/sw.js")
+      .then((res) => console.warn(res))
+      .catch((err) => {
+        console.error(err);
+      });*/
 
   }, []);
 

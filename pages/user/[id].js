@@ -14,12 +14,15 @@ import LoadingPage from "../LoadingPage";
 import { useSetPage } from "../../Hooks/useSetPage";
 import convertSubjectNameToUTF8 from "../../Hooks/convertSubjectNameToUTF8";
 import Head from "next/head";
+import Link from "next/link";
 
 export default function UserInfoPage() {
+  const router = useRouter()
   const [globalState, setGlobalState] = useContext(GlobalContext);
   const [isLoading, setIsLoading] = useState(false);
   const { user } = globalState;
   const [uid, setUid] = useState(user.id);
+  const [isFollowing, setIsFollowing] = useState([])
   const id = useRouter().asPath.split("/")[2];
 
   useSetPage({ page: "User" });
@@ -41,6 +44,7 @@ export default function UserInfoPage() {
         });
 
         setUid(auth.currentUser.uid);
+        
       } else {
         if (typeof window !== "undefined") window.location.href = "/";
       }
@@ -99,7 +103,6 @@ export default function UserInfoPage() {
         .doc(id) //just id
         .get()
         .then((userCred) => {
-          console.log(userCred);
           const user = userCred.data();
 
           setUserInfo((userInfo) => {
@@ -123,7 +126,6 @@ export default function UserInfoPage() {
           .doc(uid)
           .get()
           .then((userCred) => {
-            console.log(userCred.data());
             const user = userCred.data();
 
             setCurrentUserFollowing(user.following);
@@ -134,10 +136,33 @@ export default function UserInfoPage() {
             }
           });
       }
+
     }
   }, [isCurrentUserPage, uid]);
 
   useEffect(()=> {
+    if(!userInfo.username) return
+    function getFollowingUsers() {
+      const following = userInfo.following
+      following.forEach(id => {
+        firestore.doc('users/' + id).get()
+          .then(userCred => {
+            if(!userCred.data()) return
+            const user = {
+              username: userCred.data().username,
+              id: userCred.id
+            };
+            setIsFollowing(users => {
+              return [...users, user]
+            })
+          })
+      })
+    
+      
+    }
+
+    getFollowingUsers()
+
     if(!isCurrentUserPage || !userInfo.username) return
     function verifyCheckbox() {
       if (userInfo.privateInfo) {
@@ -146,7 +171,7 @@ export default function UserInfoPage() {
         setCheckPrivateInfoCheckbox(false);
       }
     }
-
+  
     verifyCheckbox();
   }, [userInfo])
 
@@ -245,6 +270,14 @@ export default function UserInfoPage() {
       .map((subject) => convertSubjectNameToUTF8(subject.subject).toLowerCase())
       .join(", ")
       .toString();
+  }
+
+  function redirectToUserPage(id) {
+    let userId = id
+    if(window && typeof(id) !== 'object') router.push('/user/' + userId).then(() => {
+      router.reload()
+    })
+    //if(window && typeof(id) !== 'object') window.location.href = '/user/' + userId
   }
 
   if (isLoading) {
@@ -363,11 +396,28 @@ export default function UserInfoPage() {
                   Pontos: <span>{userInfo.points}</span>
                 </h3>
               </div>
+              {(isFollowing && isFollowing.length !== 0) && (
+                <div className={styles["following-container"]}>
+                  <p>
+                    Segue{" "}
+                    <span onClick={redirectToUserPage}>
+                      {isFollowing.slice(0, 3).map((user) => {
+                        return (
+                          <span onClick={() => redirectToUserPage(user.id)}>
+                            {user.username},{" "}
+                          </span>
+                        );
+                      })}
+                      {(isFollowing.length > 3) && <span style={{color: 'var(--main-color)'}}>mais...</span>}
+                    </span>
+                  </p>
+                </div>
+              )}
               <p>
                 Se dá melhor em:{" "}
                 <span>
                   {userInfo.subjects.length
-                    ? getSubjects(userInfo.subjects) || 'sem dados o suficiente'
+                    ? getSubjects(userInfo.subjects) || "sem dados o suficiente"
                     : "sem dados o sufiiente"}
                 </span>
               </p>

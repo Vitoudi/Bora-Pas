@@ -382,9 +382,8 @@ export default function UserInfoPage() {
                 </div>
               </>
             )}
-
-            {isCurrentUserPage && <UserOptions />}
           </section>
+          {isCurrentUserPage && <UserOptions />}
 
           {isCurrentUserPage || !userInfo.privateInfo ? (
             <section
@@ -396,11 +395,14 @@ export default function UserInfoPage() {
                   Pontos: <span>{userInfo.points}</span>
                 </h3>
               </div>
-              {(isFollowing && isFollowing.length !== 0) && (
+              {isFollowing && isFollowing.length !== 0 && (
                 <div className={styles["following-container"]}>
                   <p>
                     Segue{" "}
-                    <span style={{cursor: 'pointer'}} onClick={redirectToUserPage}>
+                    <span
+                      style={{ cursor: "pointer" }}
+                      onClick={redirectToUserPage}
+                    >
                       {isFollowing.slice(0, 3).map((user) => {
                         return (
                           <span onClick={() => redirectToUserPage(user.id)}>
@@ -408,7 +410,11 @@ export default function UserInfoPage() {
                           </span>
                         );
                       })}
-                      {(isFollowing.length > 3) && <span style={{color: 'var(--main-color)'}}>mais...</span>}
+                      {isFollowing.length > 3 && (
+                        <span style={{ color: "var(--main-color)" }}>
+                          mais...
+                        </span>
+                      )}
                     </span>
                   </p>
                 </div>

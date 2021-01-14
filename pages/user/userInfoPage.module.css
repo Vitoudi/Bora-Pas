@@ -10,6 +10,7 @@
     display: grid;
     grid-template-areas: 
     'basic-info extra-info'
+    'user-options extra-info'
     ;
     grid-template-columns: 320px 1fr;
 
@@ -49,6 +50,18 @@
 
 .image-container {
     max-height: 260px;
+}
+
+.user-options {
+    grid-area: user-options;
+    display: grid;
+    justify-content: center;
+}
+
+.user-options p {
+    text-align: center;
+    margin-right: 30px;
+    color: rgb(187, 25, 25);
 }
 
 .user-extra-info-container {
@@ -147,9 +160,15 @@
     grid-template-areas: 
     'basic-info'
     'extra-info'
+    'user-options'
     ;
     grid-template-columns: 1fr;
     
+}
+
+.user-options p {
+    margin: 0;
+    margin-bottom: 40px;
 }
 
 
@@ -219,6 +238,7 @@
     margin: 10px 0;
     text-align: center;
 }
+
 
 .user-extra-info-container p span {
     font-weight: normal;

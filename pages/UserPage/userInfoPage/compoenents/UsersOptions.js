@@ -19,7 +19,6 @@ export default function UsersOptions() {
         style={{ marginTop: 40, cursor: "pointer" }}
       >
         <p onClick={handleClick}>Sair</p>
-        <p style={{ color: "rgb(151, 12, 12)" }}>Apagar conta</p>
       </div>
     );
 }

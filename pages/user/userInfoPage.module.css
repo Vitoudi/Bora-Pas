@@ -223,6 +223,7 @@
     width: 80%;
     display: grid;
     justify-content: center;
+    margin-bottom: 40px;
 }
 
 .user-extra-info-container .points-container{

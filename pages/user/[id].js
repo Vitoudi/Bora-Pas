@@ -275,7 +275,7 @@ export default function UserInfoPage() {
   function redirectToUserPage(id) {
     let userId = id
     if(window && typeof(id) !== 'object') router.push('/user/' + userId).then(() => {
-      router.reload()
+      //router.reload()
     })
     //if(window && typeof(id) !== 'object') window.location.href = '/user/' + userId
   }

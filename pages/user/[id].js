@@ -152,13 +152,12 @@ export default function UserInfoPage() {
               username: userCred.data().username,
               id: userCred.id
             };
+            console.log(user.username)
             setIsFollowing(users => {
-              return [...users, user]
+              return [...users, user];
             })
           })
       })
-    
-      
     }
 
     getFollowingUsers()
@@ -174,6 +173,28 @@ export default function UserInfoPage() {
   
     verifyCheckbox();
   }, [userInfo])
+
+  useEffect(() => {
+    let seen = new Set();
+    let hasDuplicates = isFollowing.some((currentObject) => {
+      return seen.size === seen.add(currentObject.id).size;
+    });
+
+    if (hasDuplicates) removeDuplicate();
+    else return;
+
+    function removeDuplicate() {
+      //Remove duplicate from Arraylist
+      const newArrayList = [];
+      isFollowing.forEach((obj) => {
+        if (!newArrayList.some((item) => item.id === obj.id)) {
+          newArrayList.push({ ...obj });
+        }
+      });
+
+      setIsFollowing(newArrayList);
+    }
+  }, [isFollowing]);
 
   function handleClick() {
     //Caso da página ser do próprio usuário:

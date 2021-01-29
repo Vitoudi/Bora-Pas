@@ -14,7 +14,6 @@ export default function LoginModal() {
   function handleClick() {
     checkInputFields()
     if(!validInputFields) return
-
   }
 
   function checkInputFields() {

@@ -121,6 +121,7 @@ export default function SubjectGamePage() {
   
   }, [questions, currentIndex]);
 
+  const num = '90%'
   useEffect(() => {
     if(!gameHasStarted) return
 

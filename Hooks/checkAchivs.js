@@ -18,7 +18,7 @@ export default function checkAchivs(gameInfo) {
   console.log(numberOfCorrectAnswers)
     
   if (
-    numberOfCorrectAnswers > 3
+    numberOfCorrectAnswers > MAX_NUMBER_OF_QUESTIONS
     && !userAchivs.includes('Rodada perfeita')
   ) {
     newAchivs = [...newAchivs, "Rodada perfeita"];

@@ -13,10 +13,6 @@ const defaultState = {
 export function GlobalContextProvider({children}) {
     const [globalState, setGlobalState] = useState(defaultState)
 
-    useEffect(()=> {
-      console.log(globalState)
-    }, [globalState])
-
     return (
         <GlobalContext.Provider value={[globalState, setGlobalState]}>
             {children}

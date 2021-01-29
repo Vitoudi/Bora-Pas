@@ -89,7 +89,7 @@ export default function Ranking({ user }) {
       .where('privateInfo', '==', false)
       .orderBy("points", "desc")
       .startAfter(lastFetchUser || 3000)
-      .limit(10);
+      .limit(15);
 
     const data = await ref.get();
 
@@ -115,22 +115,69 @@ export default function Ranking({ user }) {
     const dataCurrentUser = await firestore.collection("users").doc(uid).get();
 
     const currentUser = dataCurrentUser.data();
-    //console.log(currentUser)
+    console.log(lastFetchUser)
     setCurrentUser({ ...currentUser, id: uid });
 
-    const followingUsers = await firestore
+     const following = currentUser.following;
+            following.forEach((id) => { 
+              console.log(id);
+              firestore
+                .collection("users")
+                .doc(id)
+                .get()
+                .then((userCred) => { 
+                  const user = { ...userCred.data(), id: userCred.id };
+                  console.log(user);
+                  if (user.hasImage) {
+                    getUserImages(user, userCred.id, setUsers);
+                  } else {
+                    setUsers((users) => {
+                      return [...users, user].sort((a, b) => {
+                        return b.points - a.points;
+                      });
+                    });
+                  }
+                  setIsLoadingData(false);
+                })
+                .catch((err) => console.log(err));
+    
+
+                function getUserImages(user, id, callback) {
+                  storage
+                    .ref(`/users/${id}/profileImage`)
+                    .getDownloadURL()
+                    .then((url) => {
+                      user = { ...user, image: url };
+                        callback((users) => {
+                          const sorted = [...users, user].sort((a, b) => {
+                            return b.points - a.points;
+                          });
+                          let position = 0 
+                          return sorted.map(user => {
+                            position++
+                            return {...user, position}
+                          })
+                        });
+                    });
+
+                  return null;
+                }
+              })
+
+    /*const followingUsers = await firestore
       .collection("users")
       .orderBy("points", "desc")
       .startAfter(lastFetchUser || 3000)
-      .limit(10)
+      .limit(100)
       .get();
 
     if (followingUsers.empty) {
+      console.log('EMPTY')
       setIsLoadingData(false)
       setIsDataEmpty(true);
-    }
+    }*/
 
-    followingUsers.forEach((userCred) => {
+    /*followingUsers.forEach((userCred) => {
       position++;
       setGlobalPosition(position)
       let user = userCred.data();
@@ -140,21 +187,20 @@ export default function Ranking({ user }) {
       let aUser = { ...user, id: userCred.id, position };
 
       useGetUserImages(aUser, userCred.id, setUsers);
-    });
+    });*/
 
-    setLastFetchUser(followingUsers.docs[followingUsers.docs.length - 1]);
+    setIsLoadingData(false);
+    //setLastFetchUser(followingUsers.docs[followingUsers.docs.length - 1]);
   }
 
   function handleScroll(e) {
-    if (isDataEmpty) return;
+    if (isDataEmpty || isFollowingPage) return;
     const container = refContainer.current;
     let triggerHeight = container.scrollTop + container.offsetHeight;
     if (triggerHeight >= container.scrollHeight) {
-      if(isFollowingPage) {
-        loadFollowingUsers(uid)
-      } else {
+      if(!isFollowingPage) {
         loadContent()
-      }
+      } 
     }
   }
 

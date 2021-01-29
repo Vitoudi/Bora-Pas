@@ -2,9 +2,6 @@ import React, { useEffect, useState } from "react";
 import { auth, firestore, storage } from "../firebase/firebaseContext";
 import Snippet from "../shared_components/Snippet";
 import User from "../shared_components/User";
-//import SimpleBar from "simplebar-react";
-//import Simplebar from 'simplebar'
-//import "simplebar/dist/simplebar.min.css";
 import Link from "next/link";
 import { useGetUserImages } from "../Hooks/useGetUserImages";
 import LoadingIcon2 from "../public/images/loading-icon-2.svg";
@@ -36,6 +33,67 @@ export default function HomePage() {
     }
 
     function getFollowingUsers() {
+      setIsLoadingData(true);
+
+      firestore
+        .collection("users")
+        .doc(auth.currentUser.uid)
+        .get()
+        .then((userCred) => {
+          const currentUser = userCred.data();
+          const user = {
+            ...userCred.data(),
+            id: userCred.id,
+          };
+          console.log(user)
+          setCurrentUser({ ...currentUser, id: userCred.id });
+
+          const following = user.following;
+          following.forEach((id) => {
+            firestore
+              .collection("users")
+              .doc(id)
+              .get()
+              .then((userCred) => {
+                const user = { ...userCred.data(), id: userCred.id };
+                if (user.hasImage) {
+                  getUserImages(user, userCred.id, setFollowingUsers);
+                } else {
+                  setFollowingUsers((users) => {
+                    return [...users, user].sort((a, b) => {
+                      return b.points - a.points;
+                    });
+                  });
+                }
+                setIsLoadingData(false);
+              })
+              .catch((err) => console.log(err));
+
+            function getUserImages(user, id, callback) {
+              storage
+                .ref(`/users/${id}/profileImage`)
+                .getDownloadURL()
+                .then((url) => {
+                  user = { ...user, image: url };
+                  callback((users) => {
+                    const sorted = [...users, user].sort((a, b) => {
+                      return b.points - a.points;
+                    });
+                    let position = 0;
+                    return sorted.map((user) => {
+                      position++;
+                      return { ...user, position };
+                    });
+                  });
+                });
+
+              return null;
+            }
+          });
+        });
+    }
+
+    /*function getFollowingUsers() {
       setIsLoadingData(true)
       let position = 0;
 
@@ -66,15 +124,11 @@ export default function HomePage() {
               })
             });
         });
-    }
+    }*/
 
     getUsersWithHigherPontuations();
     getFollowingUsers();
   }, []);
-
-  useEffect(() => {
-    console.log(currentUser);
-  }, [currentUser]);
 
   return (
     <div className="home-page-container">
@@ -182,7 +236,7 @@ export default function HomePage() {
             <section className="achivs-section">
               <h4>Suas conquistas:</h4>
               {!isLoadingData && currentUser
-                ? currentUser.achivs.length
+                ? currentUser?.achivs?.length
                   ? currentUser.achivs.slice(0, 3).map((achiv) => {
                       return <p style={{ margin: "10px 0" }}>{achiv}</p>;
                     }, <p>...</p>)

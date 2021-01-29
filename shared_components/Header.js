@@ -84,7 +84,6 @@ export default function Header() {
       input.focus();
     }, 310)
     
-
   }, [searchMode]);
 
 

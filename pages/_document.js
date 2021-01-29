@@ -13,7 +13,7 @@ class MyDocument extends Document {
         <Head>
           <meta httpEquiv="Content-Language" content="pt-br" />
           <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-          <link rel = "icon" href ={logo} type = "image/x-icon"/> 
+          <link rel="icon" href={logo} type = "image/png"/> 
           <meta name="author" content="Victor de Andrade"></meta>
           <meta
             name="description"

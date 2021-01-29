@@ -65,6 +65,7 @@ export default function SignInModal({ setModalState }) {
   }
 
   function signInUser() {
+    
     const { email, password } = inputFieldValues;
     auth
       .createUserWithEmailAndPassword(email, password)

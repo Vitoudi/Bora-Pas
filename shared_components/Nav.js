@@ -6,7 +6,6 @@ export default function nav({isAdmin}) {
   const [globalContext, setGlobalContext] = useContext(GlobalContext)
   const {currentPage} = globalContext
 
-  console.log(isAdmin)
 
     return (
       <nav style={{ cursor: "pointer" }}>
@@ -46,9 +45,16 @@ export default function nav({isAdmin}) {
           </Link>
         )}
 
-        <div className={`nav-item ${currentPage === "Sobre" && "active"}`}>
-          Sobre
-        </div>
+        <Link href="/notifications" replace>
+          <a>
+            <div
+              className={`nav-item ${currentPage === "Notificações" && "active"}`}
+            >
+              Alertas
+            </div>
+          </a>
+        </Link>
+
       </nav>
     );
 }

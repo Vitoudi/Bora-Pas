@@ -1,0 +1,27 @@
+.container {
+    display: grid;
+    justify-content: center;
+    justify-content: center;
+    padding: 40px 20px;
+    
+}
+
+.notification {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 2px solid rgb(230, 230, 230);
+}
+
+.notification-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    object-fit: cover;
+
+}
+
+.notification-title {
+    margin-left: 10px;
+    font-weight: bold;
+}

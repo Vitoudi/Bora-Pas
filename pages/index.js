@@ -40,10 +40,6 @@ export default function CurrentPage() {
 
   }, []);
 
-  useEffect(()=> {
-    console.log(globalState.user)
-  }, [globalState])
-
   /*function Redirect({ to }) {
     useEffect(() => {
       router.replace(to);

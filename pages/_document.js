@@ -1,5 +1,5 @@
 import Document, { Html, Head, Main, NextScript } from "next/document";
-import logo from '../public/images/logo.png'
+import icon from "../public/favicon.ico";
 
 class MyDocument extends Document {
   static async getInitialProps(ctx) {
@@ -13,7 +13,8 @@ class MyDocument extends Document {
         <Head>
           <meta httpEquiv="Content-Language" content="pt-br" />
           <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-          <link rel="icon" href={logo} type = "image/png"/> 
+          <link rel="shortcut icon" href={icon} type="image/x-icon" />
+          <link rel="icon" href={icon} type="image/x-icon" />
           <meta name="author" content="Victor de Andrade"></meta>
           <meta
             name="description"

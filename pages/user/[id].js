@@ -82,6 +82,7 @@ export default function UserInfoPage() {
   //Estados no caso do usuário estar na página de outro perfil:
   const [isBeeigFollowed, setIsBeingFollowed] = useState(false);
   const [currentUserFollowing, setCurrentUserFollowing] = useState([]);
+    const [currentUser, setCurrentUser] = useState(null)
 
   useEffect(() => {
     if (id === uid) {
@@ -131,7 +132,7 @@ export default function UserInfoPage() {
           .get()
           .then((userCred) => {
             const user = userCred.data();
-
+            setCurrentUser({...userCred.data()})
             setCurrentUserFollowing(user.following);
 
             if (user.following.includes(id)) {
@@ -148,6 +149,7 @@ export default function UserInfoPage() {
     if(!userInfo.username) return
     function getFollowingUsers() {
       const following = userInfo.following
+
       following.forEach(id => {
         firestore.doc('users/' + id).get()
           .then(userCred => {
@@ -156,7 +158,6 @@ export default function UserInfoPage() {
               username: userCred.data().username,
               id: userCred.id
             };
-            console.log(user.username)
             setIsFollowing(users => {
               return [...users, user];
             })
@@ -252,6 +253,19 @@ export default function UserInfoPage() {
       update = [...currentUserFollowing, id];
       submitFollowingUpdate(update);
       setIsBeingFollowed(true);
+
+      const sendPush = functions.httpsCallable("sendPush");
+      sendPush({
+        msg: {
+          to: userInfo.notificationToken || false,
+          title: `${currentUser.username} está agora te seguindo`,
+          body: `Veja`,
+          sound: "default",
+          time: Date.now(),
+        },
+        destinationUid: id,
+        senderUid: uid,
+      });
     }
 
     function submitFollowingUpdate(update) {

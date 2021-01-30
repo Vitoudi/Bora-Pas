@@ -56,6 +56,12 @@ export default function HomePage() {
           setCurrentUser({ ...currentUser, id: userCred.id });
 
           const following = user.following;
+          console.log(following.length)
+          if(following.length === 0 || !following) {
+            setIsLoadingData(false)
+            return
+          }
+
           following.forEach((id) => {
             firestore
               .collection("users")
@@ -97,7 +103,10 @@ export default function HomePage() {
               return null;
             }
           });
-        });
+        }).catch(err => {
+          console.log(err)
+          setIsLoadingData(false)
+        })
     }
 
     /*function getFollowingUsers() {

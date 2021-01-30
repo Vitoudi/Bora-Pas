@@ -52,7 +52,7 @@ export default function CurrentPage() {
     return (
       <>
         <Head>
-          <title>BORA PAS - Prepare-se pa o Pas UNB</title>
+          <title>BORA PAS - Prepare-se para o Pas UNB</title>
         </Head>
         <LoadingPage />
       </>
@@ -63,7 +63,7 @@ export default function CurrentPage() {
   return (
     <>
       <Head>
-        <title>BORA PAS - Prepare-se pa o Pas UNB</title>
+        <title>BORA PAS - Prepare-se para o Pas UNB</title>
       </Head>
       <div
         className={`current-page ${

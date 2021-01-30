@@ -61,7 +61,10 @@ export default function UserInfoPage() {
     subjects: [],
     achivs: [],
     following: [],
-    privateInfo: false
+    privateInfo: false,
+    notifications: [],
+    pendingNotifications: false,
+    privateInfo: false,
   });
 
   //Estados no caso do usário estar na página de seu próprio perfil:
@@ -88,6 +91,7 @@ export default function UserInfoPage() {
 
   useEffect(() => {
     if (!uid) return;
+
     function getUserImage() {
       const storageRef = storage.ref(`users/${id}/profileImage`); //just id
       storageRef.getDownloadURL().then((image) => {
@@ -104,6 +108,7 @@ export default function UserInfoPage() {
         .get()
         .then((userCred) => {
           const user = userCred.data();
+          if(user.hasImage) getUserImage()
 
           setUserInfo((userInfo) => {
             return { ...userInfo, ...user };
@@ -114,7 +119,6 @@ export default function UserInfoPage() {
         });
     }
 
-    getUserImage();
     getUserInfo();
 
     //Configuração inicial no caso da página ser de outro usuário

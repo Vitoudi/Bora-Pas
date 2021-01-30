@@ -10,6 +10,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useSetPage } from "../../Hooks/useSetPage";
 import { useGetUserImages } from "../../Hooks/useGetUserImages";
+import UserDefaultImage from '../../public/images/user-default-image.png'
 import Head from "next/head";
 
 export default function Ranking({ user }) {
@@ -102,7 +103,14 @@ export default function Ranking({ user }) {
       setGlobalPosition(position);
       let aUser = { ...user.data(), position, id: user.id };
 
-      useGetUserImages(aUser, user.id, setUsers);
+      if(aUser.hasImage) {
+        useGetUserImages(aUser, user.id, setUsers);
+      } else {
+        setUsers(users => {
+          return [...users, aUser]
+        })
+      }
+      
     });
 
     setLastFetchUser(data.docs[data.docs.length - 1]);

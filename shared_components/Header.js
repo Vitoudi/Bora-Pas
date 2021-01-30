@@ -28,13 +28,17 @@ export default function Header() {
 
   useEffect(() => {
     if(!uid) return
+    setUserimage(userDefaultImage);
     function getUsername() {
       try {
         firestore
           .collection("users")
           .doc(uid)
           .get()
-          .then((user) => setUsername(user.data()? user.data().username : 'username'));
+          .then((user) => {
+            setUsername(user.data()? user.data().username : 'username')
+            if(user.data().hasImage) getUserImage()
+          });
       }
       catch {
         setUsername('username')
@@ -43,7 +47,7 @@ export default function Header() {
     }
 
     function getUserImage() {
-      setUserimage(userDefaultImage);
+      
         const storageRef = storage.ref(`users/${uid}/profileImage`)
         storageRef.getDownloadURL()
             .then((url=> {
@@ -64,7 +68,7 @@ export default function Header() {
 
     checkIfUserIsAdmin()
     getUsername();
-    getUserImage()
+    
   }, [uid]);
 
   useEffect(()=> {
@@ -128,14 +132,22 @@ export default function Header() {
     return (
       <header>
         <div className="wrapper">
-          <h1 className="logo-2">
-            bora <span>pas</span>
-          </h1>
+          <Link href="/">
+            <a>
+              <h1 className="logo-2">
+                bora <span>pas</span>
+              </h1>
+            </a>
+          </Link>
+
           <Nav isAdmin={isAdmin} />
 
-          <section className="search-place-container" onClick={()=> {
-            setSearchMode(true)
-            }}>
+          <section
+            className="search-place-container"
+            onClick={() => {
+              setSearchMode(true);
+            }}
+          >
             <img className="search-icon" src={searchIcon} alt="busca" />
           </section>
 

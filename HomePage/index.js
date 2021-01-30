@@ -27,7 +27,14 @@ export default function HomePage() {
             position++;
             let aUser = { ...user.data(), position, id: user.id };
 
-            useGetUserImages(aUser, user.id, setUsers);
+            if(aUser.hasImage) {
+              useGetUserImages(aUser, user.id, setUsers);
+            } else {
+              setUsers(users => {
+                return [...users, user]
+              })
+            }
+            
           });
         });
     }

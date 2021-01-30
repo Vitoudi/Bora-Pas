@@ -5,6 +5,9 @@ import { auth, firestore, storage } from '../../firebase/firebaseContext';
 import { useSetPage } from '../../Hooks/useSetPage';
 import LoadingPage from '../LoadingPage';
 import styles from './notifications.module.css'
+import LoadingIcon2 from '../../public/images/loading-icon-2.svg'
+import UserDefaultImage from '../../public/images/user-default-image.png'
+import Head from 'next/head';
 
 export default function NotificationPage() {
     
@@ -67,12 +70,13 @@ export default function NotificationPage() {
     }, [uid])
 
     useEffect(() => {
+        setIsLoadingData(true)
       if (!currentUser) return;
 
       if (currentUser.notifications?.length) {
         fetchNotifications();
       } else {
-        setIsLoading(false);
+        setIsLoadingData(false);
       }
 
       function fetchNotifications() {
@@ -96,10 +100,10 @@ export default function NotificationPage() {
                 });
               }
 
-              setIsLoading(false);
+              setIsLoadingData(false);
             })
             .catch((err) => {
-              setIsLoading(false);
+              setIsLoadingData(false);
               console.log(err);
             });
         });
@@ -127,28 +131,101 @@ export default function NotificationPage() {
       return <LoadingPage />;
     }
 
+    if(isLoadingData) {
+        return (
+          <>
+            <Head>
+              <title>BORA PAS - Notificações</title>
+            </Head>
+            <div
+              style={{
+                justifyContent: "center",
+                alignContent: "center",
+                height: "80vh",
+                width: "100%",
+                display: "grid",
+              }}
+            >
+              <img
+                style={{
+                  width: "60px",
+                  height: "60px",
+                  justifySelf: "center",
+                  alignSelf: "center",
+                }}
+                src={LoadingIcon2}
+                alt="carregando..."
+              />
+            </div>
+          </>
+        );
+    }
+
+    if(!notifications.length) {
+        return (
+          <>
+            <Head>
+              <title>BORA PAS - Notificações</title>
+            </Head>
+            <div
+              style={{
+                justifyContent: "center",
+                alignContent: "center",
+                height: "80vh",
+                width: "100%",
+                display: "grid",
+              }}
+            >
+              <h2
+                style={{
+                  color: "rgb(180, 180, 180)",
+                  fontWeight: "bold",
+                  textAlign: "center",
+                }}
+              >
+                Sem novas notificações
+              </h2>
+            </div>
+          </>
+        );
+    }
+
     return (
-        <div className={styles['container']}>
-            <h2 style={{textAlign: 'center', marginBottom: '10px'}}>Notificações:</h2>
-            {notifications.map(notification => {
-                return (
-                  <Link href={`user/${notification.user.id}`} key={notification.user.id}>
-                    <a href="">
-                      <div className={styles["notification"]}>
-                        <img
-                          className={styles["notification-image"]}
-                          src={notification.user.image}
-                          alt="imagem notificação"
-                        />
-                        <p className={styles["notification-title"]}>
-                          {notification.title}
-                        </p>
-                      </div>
-                    </a>
-                  </Link>
-                );
-            })}
+      <>
+        <Head>
+          <title>BORA PAS - Notificações</title>
+        </Head>
+        <div className={styles["container"]}>
+          <h2 style={{ textAlign: "center", marginBottom: "10px" }}>
+            Notificações:
+          </h2>
+          {notifications.map((notification) => {
+            return (
+              <Link
+                href={`user/${notification.user.id}`}
+                key={notification.user.id}
+              >
+                <a href="">
+                  <div className={styles["notification"]}>
+                    <img
+                      className={styles["notification-image"]}
+                      src={
+                        notification.user.image
+                          ? notification.user.image
+                          : UserDefaultImage
+                      }
+                      alt="imagem notificação"
+                    />
+                    <p className={styles["notification-title"]}>
+                      {notification.title}
+                    </p>
+                  </div>
+                </a>
+              </Link>
+            );
+          })}
         </div>
-    )
+      </>
+    );
 }
 

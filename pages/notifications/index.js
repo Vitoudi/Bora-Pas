@@ -127,6 +127,13 @@ export default function NotificationPage() {
       }
     }, [currentUser]);
 
+    function handleClick() {
+      setNotifications([]);
+      firestore.collection("users").doc(uid).update({
+        notifications: [],
+      });
+    }
+
     if (isLoading) {
       return <LoadingPage />;
     }
@@ -199,6 +206,7 @@ export default function NotificationPage() {
           <h2 style={{ textAlign: "center", marginBottom: "10px" }}>
             Notificações:
           </h2>
+          <button className="btn" style={{width: '70px', justifySelf: 'center', backgroundColor: 'rgb(150, 150, 150)'}} onClick={handleClick}>Limpar</button>
           {notifications.map((notification) => {
             return (
               <Link

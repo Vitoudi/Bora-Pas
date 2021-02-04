@@ -117,7 +117,11 @@ export default function SignInModal({ setModalState }) {
           achivs: [],
           following: [],
           subjects: [],
+          notifications: [],
           privateInfo: false,
+          hasImage: imageFile? true : false,
+          pendingNotifications: false
+
         })
         .then((output) => {
           console.log(output);
